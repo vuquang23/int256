@@ -1,5 +1,9 @@
 # 256-bit signed integer math lib
 
+<i>This is a fork of my original work at Kyber Network.</i>
+
+A high-performance 256-bit signed integer arithmetic library for Go. 
+
 ## Benchmark
 
 Not include overflow cases.
