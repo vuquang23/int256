@@ -15,30 +15,42 @@ on:
 jobs:
   lint:
     name: Run golangci-lint
-    runs-on: [ubuntu-22.04]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
-          go-version: "1.21.x"
+          go-version: 1.24
+          check-latest: true
+          cache: false
+          cache-dependency-path: |
+            go.sum
+            go.mod
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v6
         with:
-          version: v1.55.2
-          skip-pkg-cache: true
-          skip-build-cache: true
-          args: --timeout=2m
+          only-new-issues: false
+          skip-cache: true
+          skip-save-cache: true
+          working-directory: .
+          args: --timeout=10m
+
   test:
-    runs-on: [ubuntu-22.04]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
-          go-version: "1.21.x"
+          go-version: 1.24
+          check-latest: true
+          cache: false
+          cache-dependency-path: |
+            go.sum
+            go.mod
       - name: Run tests
         run: go test -race -coverprofile cover.out -vet=off ./...
       - name: Print coverage
