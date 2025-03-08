@@ -52,7 +52,7 @@ func TestGetSetInt64(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564606844")
 		y := MustFromDec("-431294739547329532759")
 		expected := "57896044618658097711785492504343953926634992332820282019297497264409235500333"
@@ -60,7 +60,7 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -68,7 +68,7 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-1"
@@ -76,7 +76,7 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("10000")
 		y := MustFromDec("-2000000")
 		expected := "-1990000"
@@ -84,7 +84,7 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-2"
@@ -92,40 +92,163 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
 		y := MustFromDec("431405283104328105143242031570231414")
 		expected := "-57896044618658097711785492504343953926634560927537177691623648761924994588561"
 		z := new(Int).Add(x, y)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	//---
+
+	t.Run("7. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564606844")
+		y := MustFromDec("-431294739547329532759")
+		expected := "57896044618658097711785492504343953926634992332820282019297497264409235500333"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("8. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("9. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("10. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("10000")
+		y := MustFromDec("-2000000")
+		expected := "-1990000"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("11. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-2"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("431405283104328105143242031570231414")
+		expected := "-57896044618658097711785492504343953926634560927537177691623648761924994588561"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	//---
+
+	t.Run("13. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564606844")
+		y := MustFromDec("-431294739547329532759")
+		expected := "57896044618658097711785492504343953926634992332820282019297497264409235500333"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("10000")
+		y := MustFromDec("-2000000")
+		expected := "-1990000"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("17. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-2"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("431405283104328105143242031570231414")
+		expected := "-57896044618658097711785492504343953926634560927537177691623648761924994588561"
+		z := y.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestNeg(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("100000")
 		expected := "-100000"
 		z := new(Int).Neg(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
 		z := new(Int).Neg(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819967"
 		z := new(Int).Neg(x)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	//---
+
+	t.Run("4. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("100000")
+		expected := "-100000"
+		z := x.Neg(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("5. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z := x.Neg(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("6. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819967"
+		z := x.Neg(x)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestSub(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("100")
 		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
@@ -133,7 +256,7 @@ func TestSub(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("9999")
 		expected := "-9999"
@@ -141,7 +264,7 @@ func TestSub(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-1"
@@ -149,17 +272,85 @@ func TestSub(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "1"
 		z := new(Int).Sub(x, y)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	//---
+
+	t.Run("5. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("100")
+		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
+		z := x.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("6. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("9999")
+		expected := "-9999"
+		z := x.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("7. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z := x.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("8. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z := x.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	//---
+
+	t.Run("9. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("100")
+		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
+		z := y.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("10. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("9999")
+		expected := "-9999"
+		z := y.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("11. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z := y.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z := y.Sub(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestQuo(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("100")
 		y := MustFromDec("-2")
 		expected := "-50"
@@ -167,7 +358,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("3194721952341")
 		expected := "-18122404854742851078740194629148605029554483750497671811411863963"
@@ -175,7 +366,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
 		y := MustFromDec("-4134320184329015710493829104")
 		expected := "-14003764110508630918697735423914335136046266814161"
@@ -183,7 +374,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819961")
 		y := MustFromDec("-4134320184329015710493829104")
 		expected := "14003764110508630918697735423914335136046266814161"
@@ -191,7 +382,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-578960446186580977117854925043439539266349923328202564819961")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -199,7 +390,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("3214732915732914729142135321421")
 		y := MustFromDec("510482085320157124")
 		expected := "6297445117426"
@@ -207,7 +398,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("7. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("510482085320157124")
 		y := MustFromDec("510482085320157124")
 		expected := "1"
@@ -215,7 +406,7 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("7. should return correct result", func(t *testing.T) {
+	t.Run("8. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("510482085320157124")
 		expected := "0"
@@ -223,15 +414,159 @@ func TestQuo(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("8. should panic error", func(t *testing.T) {
+	t.Run("9. should panic error - z receiver", func(t *testing.T) {
 		x := MustFromDec("1")
 		y := MustFromDec("0")
 		assert.Panics(t, func() { new(Int).Quo(x, y) })
 	})
+
+	//---
+
+	t.Run("10. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		y := MustFromDec("-2")
+		expected := "-50"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("11. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("3194721952341")
+		expected := "-18122404854742851078740194629148605029554483750497671811411863963"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("-4134320184329015710493829104")
+		expected := "-14003764110508630918697735423914335136046266814161"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("13. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("-4134320184329015710493829104")
+		expected := "14003764110508630918697735423914335136046266814161"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-578960446186580977117854925043439539266349923328202564819961")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("3214732915732914729142135321421")
+		y := MustFromDec("510482085320157124")
+		expected := "6297445117426"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("510482085320157124")
+		y := MustFromDec("510482085320157124")
+		expected := "1"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("17. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("510482085320157124")
+		expected := "0"
+		z := x.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. should panic error - x receiver", func(t *testing.T) {
+		x := MustFromDec("1")
+		y := MustFromDec("0")
+		assert.Panics(t, func() { x.Quo(x, y) })
+	})
+
+	//---
+
+	t.Run("19. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		y := MustFromDec("-2")
+		expected := "-50"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("20. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("3194721952341")
+		expected := "-18122404854742851078740194629148605029554483750497671811411863963"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("21. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("-4134320184329015710493829104")
+		expected := "-14003764110508630918697735423914335136046266814161"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("22. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("-4134320184329015710493829104")
+		expected := "14003764110508630918697735423914335136046266814161"
+		z := new(Int).Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("23. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-578960446186580977117854925043439539266349923328202564819961")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("24. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("3214732915732914729142135321421")
+		y := MustFromDec("510482085320157124")
+		expected := "6297445117426"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("25. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("510482085320157124")
+		y := MustFromDec("510482085320157124")
+		expected := "1"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("26. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("510482085320157124")
+		expected := "0"
+		z := y.Quo(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("27. should panic error - y receiver", func(t *testing.T) {
+		x := MustFromDec("1")
+		y := MustFromDec("0")
+		assert.Panics(t, func() { y.Quo(x, y) })
+	})
 }
 
 func TestMul(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("100")
 		y := MustFromDec("-2")
 		expected := "-200"
@@ -239,7 +574,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
@@ -247,7 +582,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "1"
@@ -255,7 +590,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -263,7 +598,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -271,7 +606,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("412421424314214830214")
 		y := MustFromDec("491735014023482390148157914")
 		expected := "202802054868735010725494286098171881252370413596"
@@ -279,7 +614,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("7. should return correct result", func(t *testing.T) {
+	t.Run("7. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("12")
 		y := MustFromDec("12")
 		expected := "144"
@@ -287,7 +622,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("8. should return correct result", func(t *testing.T) {
+	t.Run("8. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-500000000000000")
 		y := MustFromDec("5000000000000")
 		expected := "-2500000000000000000000000000"
@@ -295,7 +630,7 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("9. should return correct result", func(t *testing.T) {
+	t.Run("9. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-412421424314214830214")
 		y := MustFromDec("491735014023482390148157914")
 		expected := "-202802054868735010725494286098171881252370413596"
@@ -303,11 +638,174 @@ func TestMul(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("10. should return correct result", func(t *testing.T) {
+	t.Run("10. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("202802054868735010725494286098171881252370413596")
 		y := MustFromDec("-202802054868735010725494286098171881252370413596")
 		expected := "17633904406147578101277522337283808353988667996273383726665993364273483857136"
 		z := new(Int).Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	// ---
+
+	t.Run("11. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		y := MustFromDec("-2")
+		expected := "-200"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("13. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "202802054868735010725494286098171881252370413596"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("17. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("12")
+		y := MustFromDec("12")
+		expected := "144"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-500000000000000")
+		y := MustFromDec("5000000000000")
+		expected := "-2500000000000000000000000000"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("19. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "-202802054868735010725494286098171881252370413596"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("20. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("202802054868735010725494286098171881252370413596")
+		y := MustFromDec("-202802054868735010725494286098171881252370413596")
+		expected := "17633904406147578101277522337283808353988667996273383726665993364273483857136"
+		z := x.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	// ---
+	t.Run("21. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		y := MustFromDec("-2")
+		expected := "-200"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("22. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("23. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("24. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("25. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("26. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "202802054868735010725494286098171881252370413596"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("27. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("12")
+		y := MustFromDec("12")
+		expected := "144"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("28. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-500000000000000")
+		y := MustFromDec("5000000000000")
+		expected := "-2500000000000000000000000000"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("29. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "-202802054868735010725494286098171881252370413596"
+		z := y.Mul(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("30. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("202802054868735010725494286098171881252370413596")
+		y := MustFromDec("-202802054868735010725494286098171881252370413596")
+		expected := "17633904406147578101277522337283808353988667996273383726665993364273483857136"
+		z := y.Mul(x, y)
 		assert.Equal(t, expected, z.Dec())
 	})
 }
@@ -363,7 +861,7 @@ func TestIsUint64(t *testing.T) {
 }
 
 func TestPow(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("2")
 		n := uint64(8)
 		expected := "256"
@@ -371,7 +869,7 @@ func TestPow(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		n := uint64(10)
 		expected := "0"
@@ -379,17 +877,43 @@ func TestPow(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819")
 		n := uint64(10)
 		expected := "13268422908299897685045269624725657137437981925847170761094850041536535620361"
 		z := new(Int).Pow(x, n)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	// ---
+
+	t.Run("4. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("2")
+		n := uint64(8)
+		expected := "256"
+		z := x.Pow(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("5. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		n := uint64(10)
+		expected := "0"
+		z := x.Pow(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("6. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819")
+		n := uint64(10)
+		expected := "13268422908299897685045269624725657137437981925847170761094850041536535620361"
+		z := x.Pow(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestRem(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("3")
 		y := MustFromDec("-2")
 		expected := "1"
@@ -397,7 +921,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("35719473219571942749314729421")
 		expected := "-34167184328512991083512640217"
@@ -405,7 +929,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-35719473219571942749314729421")
 		expected := "34167184328512991083512640216"
@@ -413,7 +937,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-43179374921751324719573491471294")
 		y := MustFromDec("-43127519734921524")
 		expected := "-22155214380278890"
@@ -421,7 +945,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("-2")
 		expected := "0"
@@ -429,7 +953,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("4372195701247205721942146816424")
 		y := MustFromDec("1974924792517421647328142")
 		expected := "549633341738318150337156"
@@ -437,7 +961,7 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("7. should return correct error", func(t *testing.T) {
+	t.Run("7. should return correct error - z receiver", func(t *testing.T) {
 		x := MustFromDec("1974924792517421647328142")
 		y := MustFromDec("1974924792517421647328142")
 		expected := "0"
@@ -445,15 +969,143 @@ func TestRem(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("8. should panic error", func(t *testing.T) {
+	t.Run("8. should panic error - z receiver", func(t *testing.T) {
 		x := MustFromDec("1")
 		y := MustFromDec("0")
 		assert.Panics(t, func() { new(Int).Rem(x, y) })
 	})
+
+	// ---
+
+	t.Run("9. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("3")
+		y := MustFromDec("-2")
+		expected := "1"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("10. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("35719473219571942749314729421")
+		expected := "-34167184328512991083512640217"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("11. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-35719473219571942749314729421")
+		expected := "34167184328512991083512640216"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-43179374921751324719573491471294")
+		y := MustFromDec("-43127519734921524")
+		expected := "-22155214380278890"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("13. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("-2")
+		expected := "0"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("4372195701247205721942146816424")
+		y := MustFromDec("1974924792517421647328142")
+		expected := "549633341738318150337156"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. should return correct error - x receiver", func(t *testing.T) {
+		x := MustFromDec("1974924792517421647328142")
+		y := MustFromDec("1974924792517421647328142")
+		expected := "0"
+		z := x.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. should panic error - x receiver", func(t *testing.T) {
+		x := MustFromDec("1")
+		y := MustFromDec("0")
+		assert.Panics(t, func() { x.Rem(x, y) })
+	})
+
+	// ---
+
+	t.Run("17. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("3")
+		y := MustFromDec("-2")
+		expected := "1"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("35719473219571942749314729421")
+		expected := "-34167184328512991083512640217"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("19. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-35719473219571942749314729421")
+		expected := "34167184328512991083512640216"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("20. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-43179374921751324719573491471294")
+		y := MustFromDec("-43127519734921524")
+		expected := "-22155214380278890"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("21. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("-2")
+		expected := "0"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("22. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("4372195701247205721942146816424")
+		y := MustFromDec("1974924792517421647328142")
+		expected := "549633341738318150337156"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("23. should return correct error - y receiver", func(t *testing.T) {
+		x := MustFromDec("1974924792517421647328142")
+		y := MustFromDec("1974924792517421647328142")
+		expected := "0"
+		z := y.Rem(x, y)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("24. should panic error - y receiver", func(t *testing.T) {
+		x := MustFromDec("1")
+		y := MustFromDec("0")
+		assert.Panics(t, func() { y.Rem(x, y) })
+	})
 }
 
 func TestAddOverflow(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564606844")
 		y := MustFromDec("-431294739547329532759")
 		expected := "57896044618658097711785492504343953926634992332820282019297497264409235500333"
@@ -462,7 +1114,7 @@ func TestAddOverflow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -471,7 +1123,7 @@ func TestAddOverflow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-1"
@@ -480,7 +1132,7 @@ func TestAddOverflow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("10000")
 		y := MustFromDec("-2000000")
 		expected := "-1990000"
@@ -489,7 +1141,7 @@ func TestAddOverflow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-2"
@@ -498,18 +1150,72 @@ func TestAddOverflow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
 		y := MustFromDec("431405283104328105143242031570231414")
 		expected := "-57896044618658097711785492504343953926634560927537177691623648761924994588561"
 		z := new(Int).Add(x, y)
 		assert.Equal(t, expected, z.Dec())
+	})
 
+	// ---
+
+	t.Run("7. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564606844")
+		y := MustFromDec("-431294739547329532759")
+		expected := "57896044618658097711785492504343953926634992332820282019297497264409235500333"
+		z, overflow := x.AddOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("8. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z, overflow := x.AddOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("9. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z, overflow := x.AddOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("10. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("10000")
+		y := MustFromDec("-2000000")
+		expected := "-1990000"
+		z, overflow := x.AddOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("11. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-2"
+		z, overflow := x.AddOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("12. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819961")
+		y := MustFromDec("431405283104328105143242031570231414")
+		expected := "-57896044618658097711785492504343953926634560927537177691623648761924994588561"
+		z := x.Add(x, y)
+		assert.Equal(t, expected, z.Dec())
 	})
 }
 
 func TestSubOverflow(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("100")
 		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
@@ -518,7 +1224,7 @@ func TestSubOverflow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("9999")
 		expected := "-9999"
@@ -527,7 +1233,7 @@ func TestSubOverflow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-1"
@@ -536,7 +1242,7 @@ func TestSubOverflow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "1"
@@ -544,10 +1250,87 @@ func TestSubOverflow(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 		assert.True(t, overflow)
 	})
+
+	// ---
+
+	t.Run("5. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("100")
+		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
+		z, overflow := x.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("6. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("9999")
+		expected := "-9999"
+		z, overflow := x.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("7. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z, overflow := x.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("8. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z, overflow := x.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	// ---
+
+	t.Run("9. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("100")
+		expected := "57896044618658097711785492504343953926634992332820282019728792003956564819868"
+		z, overflow := y.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("10. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("9999")
+		expected := "-9999"
+		z, overflow := y.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("11. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-1"
+		z, overflow := y.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("12. should return correct result - y receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z, overflow := y.SubOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
 }
 
 func TestMulOverFlow(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("100")
 		y := MustFromDec("-2")
 		expected := "-200"
@@ -556,7 +1339,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
@@ -565,7 +1348,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "1"
@@ -574,7 +1357,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -583,7 +1366,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("5. should return correct result", func(t *testing.T) {
+	t.Run("5. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		expected := "0"
@@ -592,7 +1375,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("6. should return correct result", func(t *testing.T) {
+	t.Run("6. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("412421424314214830214")
 		y := MustFromDec("491735014023482390148157914")
 		expected := "202802054868735010725494286098171881252370413596"
@@ -601,7 +1384,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("7. should return correct result", func(t *testing.T) {
+	t.Run("7. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("12")
 		y := MustFromDec("12")
 		expected := "144"
@@ -610,7 +1393,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("8. should return correct result", func(t *testing.T) {
+	t.Run("8. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-500000000000000")
 		y := MustFromDec("5000000000000")
 		expected := "-2500000000000000000000000000"
@@ -619,7 +1402,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("9. should return correct result", func(t *testing.T) {
+	t.Run("9. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-412421424314214830214")
 		y := MustFromDec("491735014023482390148157914")
 		expected := "-202802054868735010725494286098171881252370413596"
@@ -628,7 +1411,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("10. should return correct result", func(t *testing.T) {
+	t.Run("10. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("202802054868735010725494286098171881252370413596")
 		y := MustFromDec("-202802054868735010725494286098171881252370413596")
 		expected := "17633904406147578101277522337283808353988667996273383726665993364273483857136"
@@ -637,7 +1420,7 @@ func TestMulOverFlow(t *testing.T) {
 		assert.True(t, overflow)
 	})
 
-	t.Run("11. should return correct result", func(t *testing.T) {
+	t.Run("11. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("1")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
@@ -646,11 +1429,121 @@ func TestMulOverFlow(t *testing.T) {
 		assert.False(t, overflow)
 	})
 
-	t.Run("12. should return correct result", func(t *testing.T) {
+	t.Run("12. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
 		y := MustFromDec("-1")
 		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
 		z, overflow := new(Int).MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	// ---
+
+	t.Run("13. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		y := MustFromDec("-2")
+		expected := "-200"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("14. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("15. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		y := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "1"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("16. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("17. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		y := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		expected := "0"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("18. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "202802054868735010725494286098171881252370413596"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("19. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("12")
+		y := MustFromDec("12")
+		expected := "144"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("20. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-500000000000000")
+		y := MustFromDec("5000000000000")
+		expected := "-2500000000000000000000000000"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("21. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-412421424314214830214")
+		y := MustFromDec("491735014023482390148157914")
+		expected := "-202802054868735010725494286098171881252370413596"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("22. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("202802054868735010725494286098171881252370413596")
+		y := MustFromDec("-202802054868735010725494286098171881252370413596")
+		expected := "17633904406147578101277522337283808353988667996273383726665993364273483857136"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.True(t, overflow)
+	})
+
+	t.Run("23. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("1")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z, overflow := x.MulOverflow(x, y)
+		assert.Equal(t, expected, z.Dec())
+		assert.False(t, overflow)
+	})
+
+	t.Run("24. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("-57896044618658097711785492504343953926634992332820282019728792003956564819968")
+		y := MustFromDec("-1")
+		expected := "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
+		z, overflow := x.MulOverflow(x, y)
 		assert.Equal(t, expected, z.Dec())
 		assert.True(t, overflow)
 	})
@@ -952,7 +1845,7 @@ func TestNot(t *testing.T) {
 }
 
 func TestLsh(t *testing.T) {
-	t.Run("1. n is equal 0", func(t *testing.T) {
+	t.Run("1. n is equal 0 - z receiver", func(t *testing.T) {
 		n := uint(0)
 		x := MustFromDec("100")
 		expected := "100"
@@ -960,7 +1853,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. n is greater than or equal 256", func(t *testing.T) {
+	t.Run("2. n is greater than or equal 256 - z receiver", func(t *testing.T) {
 		n := uint(256)
 		x := MustFromDec("-4125871947195612497219427349")
 		expected := "0"
@@ -968,7 +1861,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. x is non-neg & n is smaller than 256 and greater than or equal 192,", func(t *testing.T) {
+	t.Run("3. x is non-neg & n is smaller than 256 and greater than or equal 192 - z receiver", func(t *testing.T) {
 		n := uint(200)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-1606938044258990275541962092341162602522202993782792835301376"
@@ -976,7 +1869,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. x is non-neg & n is smaller than 192 and greater than or equal 128", func(t *testing.T) {
+	t.Run("4. x is non-neg & n is smaller than 192 and greater than or equal 128 - z receiver", func(t *testing.T) {
 		n := uint(150)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-1427247692705959881058285969449495136382746624"
@@ -984,7 +1877,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. x is non-neg & n is smaller than 128 and greater than or equal 64", func(t *testing.T) {
+	t.Run("5. x is non-neg & n is smaller than 128 and greater than or equal 64 - z receiver", func(t *testing.T) {
 		n := uint(100)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-1267650600228229401496703205376"
@@ -992,7 +1885,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. x is non-neg & n is smaller than 64", func(t *testing.T) {
+	t.Run("6. x is non-neg & n is smaller than 64 - z receiver", func(t *testing.T) {
 		n := uint(32)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "-4294967296"
@@ -1000,7 +1893,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("7. x is neg & n is smaller than 256 and greater than or equal 192,", func(t *testing.T) {
+	t.Run("7. x is neg & n is smaller than 256 and greater than or equal 192 - z receiver", func(t *testing.T) {
 		n := uint(200)
 		x := MustFromDec("-11111")
 		expected := "-17854688609761640951546740808002657676624197463920611193033588736"
@@ -1008,7 +1901,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("8. x is neg & n is smaller than 192 and greater than or equal 128", func(t *testing.T) {
+	t.Run("8. x is neg & n is smaller than 192 and greater than or equal 128 - z receiver", func(t *testing.T) {
 		n := uint(150)
 		x := MustFromDec("-11111")
 		expected := "-15858149113655920238438615406553340460348697739264"
@@ -1016,7 +1909,7 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("9. x is neg & n is smaller than 128 and greater than or equal 64", func(t *testing.T) {
+	t.Run("9. x is neg & n is smaller than 128 and greater than or equal 64 - z receiver", func(t *testing.T) {
 		n := uint(100)
 		x := MustFromDec("-11111")
 		expected := "-14084865819135856880029869314932736"
@@ -1024,17 +1917,99 @@ func TestLsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("10. x is neg & n is smaller than 64", func(t *testing.T) {
+	t.Run("10. x is neg & n is smaller than 64 - z receiver", func(t *testing.T) {
 		n := uint(32)
 		x := MustFromDec("-11111")
 		expected := "-47721381625856"
 		z := new(Int).Lsh(x, n)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	// ---
+
+	t.Run("11. n is equal 0 - x receiver", func(t *testing.T) {
+		n := uint(0)
+		x := MustFromDec("100")
+		expected := "100"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("12. n is greater than or equal 256 - x receiver", func(t *testing.T) {
+		n := uint(256)
+		x := MustFromDec("-4125871947195612497219427349")
+		expected := "0"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("13. x is non-neg & n is smaller than 256 and greater than or equal 192 - x receiver", func(t *testing.T) {
+		n := uint(200)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-1606938044258990275541962092341162602522202993782792835301376"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. x is non-neg & n is smaller than 192 and greater than or equal 128 - x receiver", func(t *testing.T) {
+		n := uint(150)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-1427247692705959881058285969449495136382746624"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. x is non-neg & n is smaller than 128 and greater than or equal 64 - x receiver", func(t *testing.T) {
+		n := uint(100)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-1267650600228229401496703205376"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. x is non-neg & n is smaller than 64 - x receiver", func(t *testing.T) {
+		n := uint(32)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "-4294967296"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("17. x is neg & n is smaller than 256 and greater than or equal 192 - x receiver", func(t *testing.T) {
+		n := uint(200)
+		x := MustFromDec("-11111")
+		expected := "-17854688609761640951546740808002657676624197463920611193033588736"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. x is neg & n is smaller than 192 and greater than or equal 128 - x receiver", func(t *testing.T) {
+		n := uint(150)
+		x := MustFromDec("-11111")
+		expected := "-15858149113655920238438615406553340460348697739264"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("19. x is neg & n is smaller than 128 and greater than or equal 64 - x receiver", func(t *testing.T) {
+		n := uint(100)
+		x := MustFromDec("-11111")
+		expected := "-14084865819135856880029869314932736"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("20. x is neg & n is smaller than 64 - x receiver", func(t *testing.T) {
+		n := uint(32)
+		x := MustFromDec("-11111")
+		expected := "-47721381625856"
+		z := x.Lsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestRsh(t *testing.T) {
-	t.Run("1. n is equal 0", func(t *testing.T) {
+	t.Run("1. n is equal 0 - z receiver", func(t *testing.T) {
 		n := uint(0)
 		x := MustFromDec("100")
 		expected := "100"
@@ -1042,7 +2017,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. x is non-neg is greater than or equal 255", func(t *testing.T) {
+	t.Run("2. x is non-neg is greater than or equal 255 - z receiver", func(t *testing.T) {
 		n := uint(255)
 		x := MustFromDec("431247391574329147932")
 		expected := "0"
@@ -1050,7 +2025,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. x is non-neg & n is smaller than 256 and greater than or equal 192,", func(t *testing.T) {
+	t.Run("3. x is non-neg & n is smaller than 256 and greater than or equal 192 - z receiver", func(t *testing.T) {
 		n := uint(200)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "36028797018963967"
@@ -1058,7 +2033,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. x is non-neg & n is smaller than 192 and greater than or equal 128", func(t *testing.T) {
+	t.Run("4. x is non-neg & n is smaller than 192 and greater than or equal 128 - z receiver", func(t *testing.T) {
 		n := uint(150)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "40564819207303340847894502572031"
@@ -1066,7 +2041,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. x is non-neg & n is smaller than 128 and greater than or equal 64", func(t *testing.T) {
+	t.Run("5. x is non-neg & n is smaller than 128 and greater than or equal 64 - z receiver", func(t *testing.T) {
 		n := uint(100)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "45671926166590716193865151022383844364247891967"
@@ -1074,7 +2049,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("6. x is non-neg & n is smaller than 64", func(t *testing.T) {
+	t.Run("6. x is non-neg & n is smaller than 64 - z receiver", func(t *testing.T) {
 		n := uint(32)
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "13479973333575319897333507543509815336818572211270286240551805124607"
@@ -1082,7 +2057,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("7. x is neg & n is smaller than 256 and greater than or equal 192,", func(t *testing.T) {
+	t.Run("7. x is neg & n is smaller than 256 and greater than or equal 192 - z receiver", func(t *testing.T) {
 		n := uint(200)
 		x := MustFromDec("-11111")
 		expected := "-1"
@@ -1090,7 +2065,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("8. x is neg & n is smaller than 192 and greater than or equal 128", func(t *testing.T) {
+	t.Run("8. x is neg & n is smaller than 192 and greater than or equal 128 - z receiver", func(t *testing.T) {
 		n := uint(150)
 		x := MustFromDec("-11111")
 		expected := "-1"
@@ -1098,7 +2073,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("9. x is neg & n is smaller than 128 and greater than or equal 64", func(t *testing.T) {
+	t.Run("9. x is neg & n is smaller than 128 and greater than or equal 64 - z receiver", func(t *testing.T) {
 		n := uint(100)
 		x := MustFromDec("-11111")
 		expected := "-1"
@@ -1106,7 +2081,7 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("10. x is neg & n is smaller than 64", func(t *testing.T) {
+	t.Run("10. x is neg & n is smaller than 64 - z receiver", func(t *testing.T) {
 		n := uint(2)
 		x := MustFromDec("-11111")
 		expected := "-2778"
@@ -1114,46 +2089,171 @@ func TestRsh(t *testing.T) {
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("11. x is neg & n is greater than or equal 255", func(t *testing.T) {
+	t.Run("11. x is neg & n is greater than or equal 255 - z receiver", func(t *testing.T) {
 		n := uint(255)
 		x := MustFromDec("-11111")
 		expected := "-1"
 		z := new(Int).Rsh(x, n)
 		assert.Equal(t, expected, z.Dec())
 	})
+
+	// ---
+
+	t.Run("12. n is equal 0 - x receiver", func(t *testing.T) {
+		n := uint(0)
+		x := MustFromDec("100")
+		expected := "100"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("13. x is non-neg is greater than or equal 255 - x receiver", func(t *testing.T) {
+		n := uint(255)
+		x := MustFromDec("431247391574329147932")
+		expected := "0"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("14. x is non-neg & n is smaller than 256 and greater than or equal 192 - x receiver", func(t *testing.T) {
+		n := uint(200)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "36028797018963967"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("15. x is non-neg & n is smaller than 192 and greater than or equal 128 - x receiver", func(t *testing.T) {
+		n := uint(150)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "40564819207303340847894502572031"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("16. x is non-neg & n is smaller than 128 and greater than or equal 64 - x receiver", func(t *testing.T) {
+		n := uint(100)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "45671926166590716193865151022383844364247891967"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("17. x is non-neg & n is smaller than 64 - x receiver", func(t *testing.T) {
+		n := uint(32)
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "13479973333575319897333507543509815336818572211270286240551805124607"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("18. x is neg & n is smaller than 256 and greater than or equal 192 - x receiver", func(t *testing.T) {
+		n := uint(200)
+		x := MustFromDec("-11111")
+		expected := "-1"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("19. x is neg & n is smaller than 192 and greater than or equal 128 - x receiver", func(t *testing.T) {
+		n := uint(150)
+		x := MustFromDec("-11111")
+		expected := "-1"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("20. x is neg & n is smaller than 128 and greater than or equal 64 - x receiver", func(t *testing.T) {
+		n := uint(100)
+		x := MustFromDec("-11111")
+		expected := "-1"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("21. x is neg & n is smaller than 64 - x receiver", func(t *testing.T) {
+		n := uint(2)
+		x := MustFromDec("-11111")
+		expected := "-2778"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("22. x is neg & n is greater than or equal 255 - x receiver", func(t *testing.T) {
+		n := uint(255)
+		x := MustFromDec("-11111")
+		expected := "-1"
+		z := x.Rsh(x, n)
+		assert.Equal(t, expected, z.Dec())
+	})
 }
 
 func TestSqrt(t *testing.T) {
-	t.Run("1. should return correct result", func(t *testing.T) {
+	t.Run("1. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("100")
 		expected := "10"
 		z := new(Int).Sqrt(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("2. should return correct result", func(t *testing.T) {
+	t.Run("2. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
 		expected := "240615969168004511545033772477625056927"
 		z := new(Int).Sqrt(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("3. should return correct result", func(t *testing.T) {
+	t.Run("3. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("13795704712047281502140217429180472156210462196574839653795")
 		expected := "117455117862302115618237725775"
 		z := new(Int).Sqrt(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("4. should return correct result", func(t *testing.T) {
+	t.Run("4. should return correct result - z receiver", func(t *testing.T) {
 		x := MustFromDec("0")
 		expected := "0"
 		z := new(Int).Sqrt(x)
 		assert.Equal(t, expected, z.Dec())
 	})
 
-	t.Run("5. should panic negative number", func(t *testing.T) {
+	t.Run("5. should panic negative number - z receiver", func(t *testing.T) {
 		x := MustFromDec("-1000")
 		assert.Panics(t, func() { new(Int).Sqrt(x) })
+	})
+
+	// ---
+
+	t.Run("6. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("100")
+		expected := "10"
+		z := x.Sqrt(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("7. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("57896044618658097711785492504343953926634992332820282019728792003956564819967")
+		expected := "240615969168004511545033772477625056927"
+		z := x.Sqrt(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("8. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("13795704712047281502140217429180472156210462196574839653795")
+		expected := "117455117862302115618237725775"
+		z := x.Sqrt(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("9. should return correct result - x receiver", func(t *testing.T) {
+		x := MustFromDec("0")
+		expected := "0"
+		z := x.Sqrt(x)
+		assert.Equal(t, expected, z.Dec())
+	})
+
+	t.Run("10. should panic negative number - x receiver", func(t *testing.T) {
+		x := MustFromDec("-1000")
+		assert.Panics(t, func() { x.Sqrt(x) })
 	})
 }

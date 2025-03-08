@@ -123,13 +123,14 @@ func (z *Int) Add(x, y *Int) *Int {
 }
 
 func (z *Int) AddOverflow(x, y *Int) (*Int, bool) {
+	signX, signY := x.Sign(), y.Sign()
 	var carry uint64
 	z[0], carry = bits.Add64(x[0], y[0], 0)
 	z[1], carry = bits.Add64(x[1], y[1], carry)
 	z[2], carry = bits.Add64(x[2], y[2], carry)
 	z[3] = x[3] + y[3] + carry
 	var overflow bool
-	signX, signY, signZ := x.Sign(), y.Sign(), z.Sign()
+	signZ := z.Sign()
 	if (signX == signY) && (signX != signZ) {
 		overflow = true
 	}
@@ -146,13 +147,14 @@ func (z *Int) Sub(x, y *Int) *Int {
 }
 
 func (z *Int) SubOverflow(x, y *Int) (*Int, bool) {
+	signX, signY := x.Sign(), y.Sign()
 	var carry uint64
 	z[0], carry = bits.Sub64(x[0], y[0], 0)
 	z[1], carry = bits.Sub64(x[1], y[1], carry)
 	z[2], carry = bits.Sub64(x[2], y[2], carry)
 	z[3] = x[3] - y[3] - carry
 	var overflow bool
-	signX, signY, signZ := x.Sign(), y.Sign(), z.Sign()
+	signZ := z.Sign()
 	if (signX == 0 && y.IsMinI256()) || ((signX != 0) && (signX != signY) && (signX != signZ)) {
 		overflow = true
 	}
@@ -297,6 +299,7 @@ func (z *Int) uquo(x, y *Int) *Int {
 	}
 	if x.IsZero() {
 		z.Clear()
+		return z
 	}
 	if x.Eq(y) {
 		return z.SetOne()
@@ -476,23 +479,23 @@ func (z *Int) rsh(x *Int, n uint) *Int {
 	switch {
 	case n >= 192:
 		n -= 192
-		z[3], z[2], z[1], z[0] = 0, 0, 0, x[3]>>n
+		z[0], z[1], z[2], z[3] = x[3]>>n, 0, 0, 0
 	case n >= 128:
 		n -= 128
-		z[3], z[2] = 0, 0
-		z[1] = x[3] >> n
 		z[0] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[1] = x[3] >> n
+		z[2], z[3] = 0, 0
 	case n >= 64:
 		n -= 64
-		z[3] = 0
-		z[2] = x[3] >> n
-		z[1] = (x[3] << (64 - n)) | (x[2] >> n)
 		z[0] = (x[2] << (64 - n)) | (x[1] >> n)
+		z[1] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[2] = x[3] >> n
+		z[3] = 0
 	default:
-		z[3] = x[3] >> n
-		z[2] = (x[3] << (64 - n)) | (x[2] >> n)
-		z[1] = (x[2] << (64 - n)) | (x[1] >> n)
 		z[0] = (x[1] << (64 - n)) | (x[0] >> n)
+		z[1] = (x[2] << (64 - n)) | (x[1] >> n)
+		z[2] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[3] = x[3] >> n
 	}
 	return z
 }
@@ -505,23 +508,23 @@ func (z *Int) negRsh(x *Int, n uint) *Int {
 	switch {
 	case n >= 192:
 		n -= 192
-		z[3], z[2], z[1], z[0] = v, v, v, (v<<(64-n))|(x[3]>>n)
+		z[0], z[1], z[2], z[3] = (v<<(64-n))|(x[3]>>n), v, v, v
 	case n >= 128:
 		n -= 128
-		z[3], z[2] = v, v
-		z[1] = (v << (64 - n)) | (x[3] >> n)
 		z[0] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[1] = (v << (64 - n)) | (x[3] >> n)
+		z[2], z[3] = v, v
 	case n >= 64:
 		n -= 64
-		z[3] = v
-		z[2] = (v << (64 - n)) | (x[3] >> n)
-		z[1] = (x[3] << (64 - n)) | (x[2] >> n)
 		z[0] = (x[2] << (64 - n)) | (x[1] >> n)
+		z[1] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[2] = (v << (64 - n)) | (x[3] >> n)
+		z[3] = v
 	default:
-		z[3] = (v << (64 - n)) | (x[3] >> n)
-		z[2] = (x[3] << (64 - n)) | (x[2] >> n)
-		z[1] = (x[2] << (64 - n)) | (x[1] >> n)
 		z[0] = (x[1] << (64 - n)) | (x[0] >> n)
+		z[1] = (x[2] << (64 - n)) | (x[1] >> n)
+		z[2] = (x[3] << (64 - n)) | (x[2] >> n)
+		z[3] = (v << (64 - n)) | (x[3] >> n)
 	}
 	return z
 }
