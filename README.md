@@ -1,6 +1,6 @@
 # 256-bit signed integer math lib
 
-<i>This is a fork of my original work at Kyber Network.</i>
+<i>This is a fork of my original work at Kyber Network https://github.com/KyberNetwork/int256</i>
 
 A high-performance 256-bit signed integer arithmetic library for Go. 
 
